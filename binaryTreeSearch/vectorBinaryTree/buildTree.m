@@ -1,5 +1,5 @@
 % fix to build a balanced tree
-function tree = build(vector)
+function tree = buildTree(vector)
 	tree = zeros(0);
 	for iVector = 1:numel(vector)
 		iTree = 1;
