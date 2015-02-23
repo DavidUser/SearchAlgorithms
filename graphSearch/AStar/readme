@@ -1,0 +1,1 @@
+this simplest A* search doesn't suport graphs with cicles, because him search all possible ways, of reach the goal. An optimized algorithm can ignore future ways, and mark nodes avoiding cycles.

@@ -1,0 +1,3 @@
+graph search algorithms are prepared to search in graph structures.
+
+A commom representation to a graph is a matrix nxn, where n is the number of nodes, the value in positions (i,j) is the weight of transite from i to j node.
