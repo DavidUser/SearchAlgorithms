@@ -1,4 +1,12 @@
-graph = zeros(0);
+#! /usr/bin/octave -q
+
+positions(1,:) = [5 5];
+positions(2,:) = [8 8];
+positions(3,:) = [2 4];
+positions(4,:) = [3 9];
+positions(5,:) = [7 10];
+
+graph = zeros(5);
 graph(1,2) = 1;
 graph(1,3) = 4;
 graph(2,3) = 2;
@@ -17,9 +25,33 @@ heuristic(5) = 0;
 start = 1;
 goal = 5;
 
+addpath('../drawGraph');
+
+fprintf('full graph representation:\n');
+display(graph);
+
+drawGraph(positions, graph);
+title('full graph');
+
+pause();
+
+% graph search and print and plot
+ 
 [ways costs] = search(graph, heuristic, start, goal);
 
 for i=1:size(ways)(1)
+	% console result
+	way = unique(ways(i,:));
 	fprintf('cost: %d, way: ', costs(i));
-	display(unique(ways(i,:)));
-end;
+	display(way);
+	
+	% graphical plot
+	wayGraph = zeros(size(graph));
+	for j = 2:numel(way)
+		wayGraph(way(j-1), way(j)) = graph(way(j-1), way(j));
+	end
+	drawGraph(positions, wayGraph);
+	title(['way ',int2str(i), ' , cost: ', int2str(costs(i))]);
+	pause();
+end
+
