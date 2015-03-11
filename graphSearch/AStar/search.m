@@ -5,10 +5,19 @@ function [ ways, waysCost ] = search(graph, heuristic, start, goal)
 
 	haveIncompleteWays = true;
 
-	way = start;
-	cost = 0;
+	ways = start;
+	waysCost = 0;
+	waysCostHeuristic = 0;
+	lowerWay = 1;
 
 	while ( haveIncompleteWays )
+		way = ways(lowerWay,:);
+		cost = waysCost(lowerWay);
+
+		ways(lowerWay, :) = [];
+		waysCost(lowerWay) = [];
+		waysCostHeuristic(lowerWay) = [];
+
 		expansionCost = graph(way(end),:);
 		expansion = find(expansionCost);
 		expansionCost = expansionCost + cost;
@@ -41,13 +50,5 @@ function [ ways, waysCost ] = search(graph, heuristic, start, goal)
 			lowerWay = lowerWay(1);
 		end
 
-		if (haveIncompleteWays)
-			way = ways(lowerWay,:);
-			cost = waysCost(lowerWay);
-
-			ways(lowerWay, :) = [];
-			waysCost(lowerWay) = [];
-			waysCostHeuristic(lowerWay) = [];
-		end
 	end
 end
