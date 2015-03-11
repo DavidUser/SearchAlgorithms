@@ -15,7 +15,7 @@ function drawArrowGraph(initial, final, label = ' ', scale = 1)
 	line(projectionX, projectionY);
 
 	if (isnumeric(label))
-		finalLabel = int2str(label);
+		finalLabel = num2str(label);
 	else
 		finalLabel = label;
 	end
