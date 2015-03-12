@@ -9,7 +9,7 @@ function graphFigure = drawGraph(states, transitions, scale = 1)
 				if ( i > j && transitions(i,j) == transitions(j,i)) % no directional arrow
 					continue;
 				end
-				drawArrowGraph(states(i,:), states(j,:), transitions(i,j), scale);
+				drawArrowGraph(states(i,:), states(j,:), transitions(i,j), scale, rand(1,3));
 			end
 		end
 	end
