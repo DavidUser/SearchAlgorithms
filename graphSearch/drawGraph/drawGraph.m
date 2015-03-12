@@ -6,6 +6,9 @@ function graphFigure = drawGraph(states, transitions, scale = 1)
 	for i=1:size(transitions)(1)
 		for j=1:size(transitions)(2)
 			if (transitions(i,j))
+				if ( i > j && transitions(i,j) == transitions(j,i)) % no directional arrow
+					continue;
+				end
 				drawArrowGraph(states(i,:), states(j,:), transitions(i,j), scale);
 			end
 		end
