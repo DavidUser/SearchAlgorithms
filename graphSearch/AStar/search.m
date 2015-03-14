@@ -46,10 +46,16 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 		
 		% find a new lower way
 		while ( haveAWay && not(any(graph(ways(lowerWay,end), :))) ) % lower way is cornered
-			if ( not(findElement(GOALS, ways(lowerWay, end))) )
+			goalElementPosition = findElement(GOALS, ways(lowerWay, :))
+			if ( not(goalElementPosition) )
 				ways(lowerWay, :) = [];
 				waysCost(lowerWay) = [];
 				waysCostHeuristic(lowerWay) = [];
+				rankWay(lowerWay) = [];
+			else
+				goalElementPosition = find(goalElementPosition)(end)
+				ways(lowerWay,:)
+				ways(lowerWay,goalElementPosition:end) = ways(lowerWay, goalElementPosition)
 			end
 			rankWay(lowerWay) = inf;
 			lowerWay = findLowerElement(rankWay)
