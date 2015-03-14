@@ -23,7 +23,7 @@ heuristic(4) = 1;
 heuristic(5) = 0;
 
 start = 1;
-goal = 5;
+goal = [2 3];
 
 addpath('../drawGraph');
 
