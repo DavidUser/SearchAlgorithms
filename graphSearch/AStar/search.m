@@ -10,12 +10,21 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 	waysCostHeuristic = 0;
 	lowerWay = 1;
 
+	waysGoal = [];
+	waysGoalCost = [];
+
 	findElement = @(COLLECTION, element) nthargout(2, @ismember, element, COLLECTION);
 	findLowerElement = @(COLLECTION, element) findElement(COLLECTION, min(COLLECTION));
 
 	while ( haveAWay ) % have a lower way to expand
 		way = ways(lowerWay,:);
 		cost = waysCost(lowerWay);
+
+		if (findElement(GOALS, way(end)))
+			waysGoal = resize(waysGoal, size(waysGoal)(1), size(ways)(2));
+			waysGoal = [waysGoal; way]
+			waysGoalCost = [waysGoalCost cost]
+		end
 
 		ways(lowerWay, :) = [];
 		waysCost(lowerWay) = [];
@@ -33,12 +42,12 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 				ways(i,find(ways(i,:) == 0)) = ways(i,find(ways(i,:)))(end);
 			end	
 		end
-		ways = [ways; newWays]
+		ways = [ways; newWays];
 		waysCost = [waysCost expansionCost(expansion)];
-
+		
 		expansionCostHeuristic = expansionCost + heuristic;
 		expansionCostHeuristic = expansionCostHeuristic(expansion);
-		waysCostHeuristic = [waysCostHeuristic expansionCostHeuristic]
+		waysCostHeuristic = [waysCostHeuristic expansionCostHeuristic];
 		
 		rankWay = waysCostHeuristic - min(waysCostHeuristic);
 		lowerWay = findLowerElement(rankWay);
@@ -46,21 +55,23 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 		
 		% find a new lower way
 		while ( haveAWay && not(any(graph(ways(lowerWay,end), :))) ) % lower way is cornered
-			goalElementPosition = findElement(GOALS, ways(lowerWay, :))
+			goalElementPosition = findElement(GOALS, ways(lowerWay, :));
 			if ( not(goalElementPosition) )
 				ways(lowerWay, :) = [];
 				waysCost(lowerWay) = [];
+				waysGoalCost(lowerWay) = [];
 				waysCostHeuristic(lowerWay) = [];
 				rankWay(lowerWay) = [];
 			else
-				goalElementPosition = find(goalElementPosition)(end)
-				ways(lowerWay,:)
-				ways(lowerWay,goalElementPosition:end) = ways(lowerWay, goalElementPosition)
+				goalElementPosition = find(goalElementPosition)(end);
+				ways(lowerWay,goalElementPosition:end) = ways(lowerWay, goalElementPosition);
 			end
 			rankWay(lowerWay) = inf;
-			lowerWay = findLowerElement(rankWay)
+			lowerWay = findLowerElement(rankWay);
 			haveAWay = finite(rankWay(lowerWay));
 		end
 
 	end
+	ways = waysGoal
+	waysCost = waysGoalCost
 end
