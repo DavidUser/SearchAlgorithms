@@ -41,7 +41,9 @@ pause();
 
 for i=1:size(ways)(1)
 	% console result
-	way = unique(ways(i,:));
+	way = ways(i,:);
+	way = way(find(way)); %remove zeros
+	way = way(sort(nthargout(2, @unique, way, 'first'))); %remove repetitions
 	fprintf('cost: %d, way: ', costs(i));
 	display(way);
 	
