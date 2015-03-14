@@ -22,8 +22,8 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 
 		if (findElement(GOALS, way(end)))
 			waysGoal = resize(waysGoal, size(waysGoal)(1), size(ways)(2));
-			waysGoal = [waysGoal; way]
-			waysGoalCost = [waysGoalCost cost]
+			waysGoal = [waysGoal; way];
+			waysGoalCost = [waysGoalCost cost];
 		end
 
 		ways(lowerWay, :) = [];
@@ -35,14 +35,8 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 		expansionCost = expansionCost + cost;
 		newWays = [ ones(numel(expansion),1) * way, expansion' ];
 
-		%repeat state to static ways
-		if (size(ways)(2) < size(newWays)(2))
-			ways = resize(ways, size(ways)(1), size(newWays)(2));
-			for i=1:size(ways)(1)
-				ways(i,find(ways(i,:) == 0)) = ways(i,find(ways(i,:)))(end);
-			end	
-		end
-		ways = [ways; newWays];
+		ways = [ways ways(:,end); 	% repeat last state to static ways
+			newWays]; 		% concat new ways
 		waysCost = [waysCost expansionCost(expansion)];
 		
 		expansionCostHeuristic = expansionCost + heuristic;
@@ -72,6 +66,6 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 		end
 
 	end
-	ways = waysGoal
-	waysCost = waysGoalCost
+	ways = waysGoal;
+	waysCost = waysGoalCost;
 end
