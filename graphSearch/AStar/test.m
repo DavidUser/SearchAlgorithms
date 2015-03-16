@@ -14,6 +14,7 @@ graph(2,4) = 5;
 graph(2,5) = 12;
 graph(3,4) = 2;
 graph(4,5) = 3;
+graph(2,1) = graph(1,2);
 
 heuristic = zeros(0);
 heuristic(1) = 7;
@@ -23,7 +24,7 @@ heuristic(4) = 1;
 heuristic(5) = 0;
 
 start = 1;
-goal = [2 3];
+goal = [4 5];
 
 addpath('../drawGraph');
 
