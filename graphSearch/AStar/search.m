@@ -1,4 +1,4 @@
-function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
+function [ ways, waysCost ] = search(graph, heuristic, start, GOALS, searchTime = inf)
 	ways = zeros(0);
 	waysCost = zeros(0);
 	waysCostHeuristic = zeros(0);
@@ -16,7 +16,8 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 	findElement = @(COLLECTION, element) nthargout(2, @ismember, element, COLLECTION);
 	findLowerElement = @(COLLECTION, element) findElement(COLLECTION, min(COLLECTION));
 
-	while ( haveAWay ) % have a lower way to expand
+	tic;
+	while ( haveAWay && toc < searchTime ) % have a lower way to expand
 		way = ways(lowerWay,:);
 		cost = waysCost(lowerWay);
 
@@ -59,6 +60,7 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS)
 			else
 				goalElementPosition = find(goalElementPosition)(end);
 				ways(lowerWay,goalElementPosition:end) = ways(lowerWay, goalElementPosition);
+				haveAWay = false;
 			end
 			rankWay(lowerWay) = inf;
 			lowerWay = findLowerElement(rankWay);

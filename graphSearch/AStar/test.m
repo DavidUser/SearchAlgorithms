@@ -38,7 +38,7 @@ pause();
 
 % graph search and print and plot
  
-[ways costs] = search(graph, heuristic, start, goal);
+[ways costs] = search(graph, heuristic, start, goal, .1);
 
 for i=1:size(ways)(1)
 	% console result
@@ -55,6 +55,6 @@ for i=1:size(ways)(1)
 	end
 	drawGraph(positions, wayGraph);
 	title(['way ',int2str(i), ' , cost: ', int2str(costs(i))]);
-	pause();
+	pause(.5);
 end
 
