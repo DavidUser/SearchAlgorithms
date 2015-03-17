@@ -33,6 +33,10 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS, searchTime 
 
 		expansionCost = graph(way(end),:);
 		expansion = find(expansionCost);
+
+		% eliminate cycle expansion
+		expansion( find(ismember(expansion, way)) ) = [];
+
 		expansionCost = expansionCost + cost;
 		newWays = [ ones(numel(expansion),1) * way, expansion' ];
 
