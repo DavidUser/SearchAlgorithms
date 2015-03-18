@@ -1,9 +1,10 @@
-function drawNodeGraph(posX, posY, name)
+function drawNodeGraph(posX, posY, name, scale = 1)
 	hold on;
-	[X Y Z] = ellipsoid(posX, posY, 0, .3, .3, 0);
+	radius = .3*scale;
+	[X Y Z] = ellipsoid(posX, posY, 0, radius, radius, 0);
 	surf(X,Y,Z,'EdgeColor', 'none');
 	if (isnumeric(name))
-		text(posX, posY, int2str(name));
+		text(posX, posY, num2str(name));
 	else
 		text(posX, posY, name);
 	end

@@ -1,5 +1,5 @@
-function drawArrowGraph(initial, final, label = ' ')
-	offset = .3;
+function drawArrowGraph(initial, final, label = ' ', scale = 1)
+	offset = .3*scale;
 	for i = 1:2
 		if (initial(i) < final(i))
 			initial(i) = initial(i) + offset;
@@ -15,7 +15,7 @@ function drawArrowGraph(initial, final, label = ' ')
 	line(projectionX, projectionY);
 
 	if (isnumeric(label))
-		finalLabel = int2str(label);
+		finalLabel = num2str(label);
 	else
 		finalLabel = label;
 	end
