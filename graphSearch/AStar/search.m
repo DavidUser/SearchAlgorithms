@@ -26,7 +26,7 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS, searchTime 
 		waysCostHeuristic(lowerWay) = [];
 
 		expansionCost = graph(way(end),:);
-		expansion = find(expansionCost)
+		expansion = find(expansionCost);
 
 		% eliminate cycle expansion
 		expansion( find(ismember(expansion, way)) ) = [];
