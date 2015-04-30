@@ -1,5 +1,4 @@
 function graphFigure = drawGraph(states, transitions, scale = 1)
-	graphFigure = drawBackgroundGraph(max(states(:,1)), max(states(:,2)));
 	for i=1:size(states)(1)
 		drawNodeGraph(states(i,1), states(i,2), i, scale);
 	end
