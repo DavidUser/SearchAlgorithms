@@ -57,7 +57,6 @@ function [ ways, waysCost ] = search(graph, heuristic, start, GOALS, searchTime 
 			if ( not(goalElementPosition) )
 				ways(lowerWay, :) = [];
 				waysCost(lowerWay) = [];
-				waysGoalCost(lowerWay) = [];
 				waysCostHeuristic(lowerWay) = [];
 				rankWay(lowerWay) = [];
 			else
